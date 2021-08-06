@@ -8,7 +8,7 @@ It provides example for two kinds of plugins:
 
 ## What is it ?
 It contains a simple but complete repository you can fork to start your development. That includes:
-1. A Nx monorepo with a library [seed](libs/seed) containing the two plugins.
+1. A Nx monorepo with a library [seed](libs/rest) containing the two plugins.
 2. An Application [plugin-tester](apps/plugin-tester) loading these plugins automatically and allowing you to test and debug them.
 3. Unit tests setup with Jest for each of these plugins.
 4. End 2 end tests example [plugin-tester-e2e](apps/plugin-tester-e2e) using Cypress.
@@ -19,9 +19,9 @@ It contains a simple but complete repository you can fork to start your developm
 To develop your own plugins using this seed repository, simply:
 1. Fork this repository in github.
 2. Install it, run some tests and the tester application to make sure it is working.
-3. If you want to create a plugin for a new Field, rename and modify the [SeedField component](libs/seed/src/lib/preview/seed-field).
-4. If you want to create any other plugin types, rename and modify the [SeedEntity component](libs/seed/src/lib/preview/seeded-entity).
-5. Updates the configuration to be injected to the Dont-code platform here [SeedPlugin](libs/seed/src/lib/declaration/seed-plugin.ts)
+3. If you want to create a plugin for a new Field, rename and modify the [SeedField component](libs/rest/src/lib/preview/seed-field).
+4. If you want to create any other plugin types, rename and modify the [SeedEntity component](libs/rest/src/lib/preview/seeded-entity).
+5. Updates the configuration to be injected to the Dont-code platform here [SeedPlugin](libs/rest/src/lib/declaration/rest-plugin.ts)
 6. Ensure the plugin tester adds the updated module name of your plugin [AppModule](apps/plugin-tester/src/app/app.module.ts)
 7. Modify the templates loaded by the plugin tester to ease usage of your plugin [templates.json](apps/plugin-tester/src/assets/dev/templates.json)
 8. Run the plugin-tester application and debug your plugins there

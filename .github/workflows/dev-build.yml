@@ -34,10 +34,10 @@ jobs:
           npm ci
       - name: Build
         run: |
-          npm run nx run seed:build -- --prod
+          npm run nx run rest:build -- --prod
       - name: Unit tests
         run: |
-          npm run nx run seed:test
+          npm run nx run rest:test
           npm run nx run plugin-tester:test
       - name: E2E Tests on ${{matrix.browser}}
         run: |

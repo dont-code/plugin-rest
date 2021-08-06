@@ -36,13 +36,13 @@ jobs:
       - name: Version the plugin library
         if: ${{ matrix.browser == 'chromium' }}
         run: npm version patch
-        working-directory: libs/seed
+        working-directory: libs/rest
       - name: Build
         run: |
-          npm run nx run seed:build -- --prod
+          npm run nx run rest:build -- --prod
       - name: Unit tests
         run: |
-          npm run nx run seed:test
+          npm run nx run rest:test
           npm run nx run plugin-tester:test
       - name: E2E Tests on ${{matrix.browser}}
         run: |
@@ -63,7 +63,7 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
         with:
-          path: libs/seed
+          path: libs/rest
       - name: Push the plugin version in Github
         if: ${{ success() && ( matrix.browser == 'chromium' )}}
         run: |
@@ -74,13 +74,13 @@ jobs:
       - name: Publish the Plugin to npm repository
         if: ${{ success() && ( matrix.browser == 'chromium' )}}
         run: |
-          npm publish dist/libs/seed --access public
+          npm publish dist/libs/rest --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Deploy the tester application in github pages
         if: ${{ success() && matrix.browser == 'chromium'}}
         run: |
-          npm run build -- --prod --project=plugin-tester --base-href "https://dont-code.net/plugin-seed/"
+          npm run build -- --prod --project=plugin-tester --base-href "https://dont-code.net/plugin-rest/"
           touch dist/apps/plugin-tester/.nojekyll
       - name: Deploy PluginTester
         if: ${{ success() && ( matrix.browser == 'chromium' )}}

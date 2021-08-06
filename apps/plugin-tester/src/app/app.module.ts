@@ -7,7 +7,7 @@ import {SandboxModule} from "@dontcode/sandbox";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {environment} from "../environments/environment";
 import {HttpClientModule} from "@angular/common/http";
-import {SeedModule} from "@dontcode/seed";
+import {RestModule} from "@dontcode/plugin-rest";
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +28,7 @@ import {SeedModule} from "@dontcode/seed";
       theme:'orange',
       templateFileUrl: 'assets/dev/templates.json'
     }),
-    SeedModule
+    RestModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -130,33 +130,33 @@
         }
       }
     },
-    "seed": {
+    "rest": {
       "projectType": "library",
-      "root": "libs/seed",
-      "sourceRoot": "libs/seed/src",
+      "root": "libs/rest",
+      "sourceRoot": "libs/rest/src",
       "prefix": "dontcode",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
-          "outputs": ["dist/libs/seed"],
+          "outputs": ["dist/libs/rest"],
           "options": {
-            "project": "libs/seed/ng-package.json"
+            "project": "libs/rest/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "libs/seed/tsconfig.lib.prod.json"
+              "tsConfig": "libs/rest/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "libs/seed/tsconfig.lib.json"
+              "tsConfig": "libs/rest/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/seed"],
+          "outputs": ["coverage/libs/rest"],
           "options": {
-            "jestConfig": "libs/seed/jest.config.js",
+            "jestConfig": "libs/rest/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -164,8 +164,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/seed/src/**/*.ts",
-              "libs/seed/src/**/*.html"
+              "libs/rest/src/**/*.ts",
+              "libs/rest/src/**/*.html"
             ]
           }
         }

@@ -34,7 +34,7 @@
       "tags": [],
       "implicitDependencies": ["plugin-tester"]
     },
-    "seed": {
+    "rest": {
       "tags": []
     }
   }
