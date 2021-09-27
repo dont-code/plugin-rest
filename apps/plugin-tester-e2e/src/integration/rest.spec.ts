@@ -6,11 +6,11 @@ import {
   selectPopupChoiceWithText
 } from '../support/app.po';
 
-describe('plugin-tester', () => {
+describe('Rest Test', () => {
   beforeEach(() => cy.visit('/'));
 
   it ('should display Seed Field', () => {
-      cy.intercept('GET', '/assets/dev/templates.json').as('LoadTemplate');
+/*      cy.intercept('GET', '/assets/dev/templates.json').as('LoadTemplate');
       getSubMenuWithText('Dev').click();// Move to dev page
 
       cy.wait('@LoadTemplate');
@@ -54,7 +54,7 @@ describe('plugin-tester', () => {
 
     getContentArea().contains ('Value of id: abc');
     getContentArea().contains ('Value of count: 124');
-
+*/
   });
 
 });

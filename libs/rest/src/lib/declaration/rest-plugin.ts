@@ -1,97 +1,56 @@
 import {Plugin, DontCodeModel, PluginConfig} from '@dontcode/core';
 
 /**
- * This plugin demonstrate 2 things:
- * - how to declare a new field type that can be selected in the Builder and how to manage the display and edition of this new type in the Previewer.
- * - As well it adds a new attribute 'seed' to any Entity and provides a viewer for the Previewer when its value is Yes or Maybe.
+ * This plugin enables loading / saving entities from any rest services.
  */
 export class RestPlugin implements Plugin
 {
   getConfiguration(): PluginConfig {
     return {
       plugin: {
-        id: 'SeedPlugin',
-        'display-name': 'An starter project for development of Dont-code plugins.',
+        id: 'RestPlugin',
+        'display-name': 'A plugin for entities managed through Rest APIs .',
         version: '1.0.0'
       },
       'schema-updates': [{
-        id: 'seed-field',
-        description: 'Add a new type of field to Dont-code: the SeedField',
+        id: 'rest-field',
+        description: 'Create the list of sources',
         changes: [{
           location: {
-            parent: '#/definitions/field',
+            parent: '#/creation',
+            id: 'sources'
+          },
+          update: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                for: {
+                  type: 'string',
+                  format: '$.creation.entities[*]'
+                }
+              }
+            }
+          },
+          replace: false
+        },{
+          location: {
+            parent: '#/creation/sources',
             id: 'type'
           },
           update: {
             enum: [
-              'Seed Field'
+              'Rest'
             ]
+          },
+          props: {
+            url: {
+              type: 'string'
+            }
           },
           replace: false
         }]
-      }, {
-        id: "seeded-entity",
-        description: "Adds 'seed' attribute to any entity and display the entity if seed is Maybe or Yes",
-        changes: [{
-          location: {
-            parent: '#/definitions/entity',
-            id: 'seed',
-            after: 'name'
-          },
-          update: {
-            enum: [
-              'Yes',
-              'Maybe'
-            ]
-          },
-          replace: true
-        }, {
-          location: {
-            parent: '/definitions/entity',
-            id: 'seed',
-            after: 'name'
-          },
-          update: {
-            enum: [
-              'No'
-            ]
-          },
-          replace: false
-        }]
-      }],
-      'preview-handlers': [
-        {
-          location: {
-            parent: DontCodeModel.APP_FIELDS,
-            id: 'type',
-            values: [{
-              Seed: {
-                enum: [
-                  'Seed Field'
-                ]
-              }
-            }]
-          },
-          class: {
-            name: 'SeedFieldComponent',
-            source: 'seed'
-          }
-        },
-        {
-          location: {
-            parent: DontCodeModel.APP_ENTITIES,
-            id: "seed",
-            values: [
-              "Yes", "Maybe"
-            ]
-          },
-          class: {
-            name: "SeededEntityComponent",
-            source: "seed"
-          }
-        }
-      ]
+      }]
     }
   }
-
 }
