@@ -1,5 +1,5 @@
 {
-  "name": "@dontcode/rest",
+  "name": "@dontcode/plugin-rest",
   "version": "0.0.2",
   "peerDependencies": {
     "@angular/common": "^12.1.4",
