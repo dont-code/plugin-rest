@@ -13,29 +13,11 @@ export class RestPlugin implements Plugin
         version: '1.0.0'
       },
       'schema-updates': [{
-        id: 'rest-field',
-        description: 'Create the list of sources',
+        id: 'rest-source',
+        description: 'Add rest type of source',
         changes: [{
           location: {
-            parent: '#/creation',
-            id: 'sources'
-          },
-          update: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                for: {
-                  type: 'string',
-                  format: '$.creation.entities[*]'
-                }
-              }
-            }
-          },
-          replace: false
-        },{
-          location: {
-            parent: '#/creation/sources',
+            parent: '#/$defs/source',
             id: 'type'
           },
           update: {
@@ -50,7 +32,21 @@ export class RestPlugin implements Plugin
           },
           replace: false
         }]
-      }]
+      }],
+      'preview-handlers': [
+        {
+          location: {
+            parent: DontCodeModel.ROOT+'/sources',
+            id: 'type',
+            values: ['Rest']
+          },
+          class: {
+            name: 'SourceHandler',
+            source: 'rest'
+          }
+        }
+        ]
+
     }
   }
 }
