@@ -33,7 +33,7 @@ export class RestPlugin implements Plugin
           replace: false
         }]
       }],
-      'preview-handlers': [
+      'global-handlers': [
         {
           location: {
             parent: DontCodeModel.ROOT+'/sources',

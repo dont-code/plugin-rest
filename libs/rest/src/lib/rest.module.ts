@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {Injector, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RestPlugin} from "./declaration/rest-plugin";
 import {dtcde} from '@dontcode/core';
@@ -12,7 +12,7 @@ import {PluginCommonModule} from '@dontcode/plugin-common';
 export class RestModule {
   constructor() {
     console.log('Rest Plugin registering');   // Look for this log to make sure your plugin has been loaded
-    dtcde.registerPlugin(new RestPlugin ());  // When created a module must register to the platform.
+    dtcde.registerPlugin(new RestPlugin());  // When created a module must register to the platform.
   }
 
   // We have no graphical components to declare
