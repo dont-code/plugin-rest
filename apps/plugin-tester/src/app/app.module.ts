@@ -23,8 +23,8 @@ import {RestModule} from "@dontcode/plugin-rest";
     }),
     SandboxModule.forRoot({
       webSocketUrl: environment.webSocketUrl,
-      indexedDbName: 'Seed Plugin Tester',
-      applicationName: 'Seed Plugin Tester',
+      indexedDbName: 'Rest Plugin Tester',
+      applicationName: 'Rest Plugin Tester',
       theme:'orange',
       templateFileUrl: 'assets/dev/templates.json'
     }),

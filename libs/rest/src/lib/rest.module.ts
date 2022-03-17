@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RestPlugin} from "./declaration/rest-plugin";
 import {dtcde} from '@dontcode/core';
 import {PluginCommonModule} from '@dontcode/plugin-common';
+import {SourceHandler} from "./preview/source/source-handler";
 
 @NgModule({
     imports: [CommonModule, PluginCommonModule],
@@ -15,8 +16,11 @@ export class RestModule {
     dtcde.registerPlugin(new RestPlugin());  // When created a module must register to the platform.
   }
 
-  // We have no graphical components to declare
   exposedPreviewHandlers(): Map<string, any> | null {
-    return null;
+    return new Map<string, any> ([['SourceHandler', SourceHandler]
+      ]);
   }
 }
+
+export * from './preview/source/rest-store-provider';
+export * from './preview/source/source-handler';
