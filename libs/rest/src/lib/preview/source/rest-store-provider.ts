@@ -1,22 +1,23 @@
 import {
+  DontCodeModel,
   DontCodeModelManager,
   DontCodeStoreCriteria,
   DontCodeStoreProvider,
-  DontCodeStoreProviderWithConfig, dtcde,
+  dtcde,
   UploadedDocumentInfo
 } from "@dontcode/core";
 import {Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs/internal/operators";
+import {map} from "rxjs/operators";
 
 
 export class RestStoreProvider implements DontCodeStoreProvider {
-  protected url:string;
   modelMgr: DontCodeModelManager;
 
+  static clearConfigCache (): void {
+  }
 
-  constructor(url:string, protected http:HttpClient) {
-    this.url = url;
+  constructor(protected http:HttpClient) {
     this.modelMgr = dtcde.getModelManager();
   }
 
@@ -30,7 +31,9 @@ export class RestStoreProvider implements DontCodeStoreProvider {
       return Promise.reject("No entity found at position "+position);
     }
 
-    const obs = this.http.get(this.url+'/'+entity.name+'/'+key, {observe:"body", responseType:"json"});
+    const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position);
+
+    const obs = this.http.get(config.url+(key?'/'+key:''), {observe:"body", responseType:"json"});
     return obs.toPromise();
   }
 
@@ -40,7 +43,9 @@ export class RestStoreProvider implements DontCodeStoreProvider {
       return throwError("No entity found at position "+position);
     }
 
-    return this.http.get(this.url+'/'+entity.name, {observe:"body", responseType:"json"}).pipe(map(value => {
+    const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position);
+
+    return this.http.get(config.url, {observe:"body", responseType:"json"}).pipe(map(value => {
         return value as Array<any>;
       }
     ));
@@ -57,5 +62,6 @@ export class RestStoreProvider implements DontCodeStoreProvider {
   storeDocuments(toStore: File[], position?: string): Observable<UploadedDocumentInfo> {
     return throwError('Document storage is unsupported.');
   }
+
 
 }
