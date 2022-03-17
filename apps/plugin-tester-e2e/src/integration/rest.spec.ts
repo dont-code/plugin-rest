@@ -1,4 +1,5 @@
 import {
+  checkValueOfInputWithName,
   clickAutoComplete, getContentArea, getDropdownListItemWithName,
   getDropdownWithName, getInputWithName,
   getSendButton,
@@ -9,23 +10,21 @@ import {
 describe('Rest Test', () => {
   beforeEach(() => cy.visit('/'));
 
-  it ('should display Seed Field', () => {
-/*      cy.intercept('GET', '/assets/dev/templates.json').as('LoadTemplate');
+  it ('should display Values from Rest Source', () => {
+      cy.intercept('GET', '/assets/dev/templates.json').as('LoadTemplate');
       getSubMenuWithText('Dev').click();// Move to dev page
 
       cy.wait('@LoadTemplate');
       clickAutoComplete("template");
-      selectPopupChoiceWithText("Test Seed Field");
+      selectPopupChoiceWithText("Create Test Offline");
       getSendButton().click();
-      getSubMenuWithText('Seed Field').click();
+      getSubMenuWithText('Offline Test').click();
 
-      getDropdownWithName('Test').click();
-      getDropdownListItemWithName('Rosa Seed').click();
-
-      getContentArea().contains ('Value of Test: Rosa');
+      getContentArea().contains ('Value of Title: Inception');
+      checkValueOfInputWithName('Director','Christopher Nolan');
     });
 
-  it ('should display Seeder entity', () => {
+/* it ('should display Seeder entity', () => {
     cy.intercept('GET', '/assets/dev/templates.json').as('LoadTemplate');
     getSubMenuWithText('Dev').click();// Move to dev page
 
@@ -54,7 +53,7 @@ describe('Rest Test', () => {
 
     getContentArea().contains ('Value of id: abc');
     getContentArea().contains ('Value of count: 124');
-*/
-  });
 
+  });
+*/
 });
