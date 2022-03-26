@@ -9,6 +9,7 @@ import {
 import {Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
+import {A} from "@angular/cdk/keycodes";
 
 
 export class RestStoreProvider implements DontCodeStoreProvider {
@@ -46,7 +47,18 @@ export class RestStoreProvider implements DontCodeStoreProvider {
     const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position);
 
     return this.http.get(config.url, {observe:"body", responseType:"json"}).pipe(map(value => {
-        return value as Array<any>;
+        // Check if the result is an array, otherwise try to find an array embedded in the result
+        if (Array.isArray(value)) {
+          return value as Array<any>;
+        } else {
+          let prop: keyof typeof value;
+          for (prop in value) {
+            if (Array.isArray(value[prop])) {
+              return (value[prop] as unknown as Array<any>);
+            }
+          }
+          return [];
+        }
       }
     ));
   }
