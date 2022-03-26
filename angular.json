@@ -81,7 +81,10 @@
               "extraWebpackConfig": "apps/plugin-tester/webpack.config.js"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 3001
+          }
         },
         "extract-i18n": {
           "builder": "ngx-build-plus:extract-i18n",
