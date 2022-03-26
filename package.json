@@ -39,7 +39,7 @@
     "@angular/platform-browser": "^12.2.13",
     "@angular/platform-browser-dynamic": "^12.2.13",
     "@angular/router": "^12.2.13",
-    "@dontcode/core": "^0.4.8",
+    "@dontcode/core": "^0.4.9",
     "@dontcode/plugin-common": "^0.4.4",
     "@dontcode/sandbox": "^0.4.4",
     "@nrwl/angular": "13.1.4",
