@@ -81,10 +81,13 @@ export class RestStoreProvider implements DontCodeStoreProvider {
 
     const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position);
 
-    const obs = this.http.get(config.url+(key?'/'+key:''), {observe:"body", responseType:"json"});
+    const obs = this.http.get(config.url+(key?'/'+key:''), {observe:"body", responseType:"json"}).pipe(
+      map (value => {
+        RestStoreProvider.convertDatesFromJson([value], RestStoreProvider.findDates(position, entity));
+        return value;
+      }))
     return obs.toPromise();
   }
-
 
   searchEntities(position: string, ...criteria: DontCodeStoreCriteria[]): Observable<Array<any>> {
     const entity = this.modelMgr.findAtPosition(position, false);
