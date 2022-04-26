@@ -3,7 +3,7 @@ import {HttpClientTestingModule, HttpTestingController} from "@angular/common/ht
 import {HttpClient} from "@angular/common/http";
 import {dtcde} from '@dontcode/core';
 import {RestStoreProvider} from "@dontcode/plugin-rest";
-import {tap} from "rxjs/internal/operators";
+import {tap} from "rxjs";
 
 
 describe('Rest Store Provider', () => {
