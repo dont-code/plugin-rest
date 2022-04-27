@@ -1,7 +1,7 @@
 module.exports = {
   name: 'plugin-tester',
   exposes: {
-    './Rest': './libs/rest/src/lib/rest.module.ts',
+    './Rest': './libs/rest/src/lib/rest.module.ts'
   },
   shared: (name, config) => {
     return {
