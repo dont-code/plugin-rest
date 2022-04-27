@@ -1,12 +1,11 @@
-import {Injector, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RestPlugin} from "./declaration/rest-plugin";
 import {dtcde} from '@dontcode/core';
-import {PluginCommonModule} from '@dontcode/plugin-common';
 import {SourceHandler} from "./preview/source/source-handler";
 
 @NgModule({
-    imports: [CommonModule, PluginCommonModule],
+    imports: [CommonModule],
   declarations: [],
   id:'dontcode-plugin/rest' // A module containing previewer components must have an id to be found by the dont-code platform.
 })

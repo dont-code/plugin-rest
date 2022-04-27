@@ -1,13 +1,18 @@
+/*
+ * This RemoteEntryModule is imported here to allow TS to find the Module during
+ * compilation, allowing it to be included in the built bundle. This is required
+ * for the Module Federation Plugin to expose the Module correctly.
+ * */
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {RouterModule} from '@angular/router';
-import {SandboxModule} from "@dontcode/sandbox";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {environment} from "../environments/environment";
-import {HttpClientModule} from "@angular/common/http";
-import {RestModule} from "@dontcode/plugin-rest";
+import {SandboxModule} from '@dontcode/sandbox';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {environment} from '../environments/environment';
+import {HttpClientModule} from '@angular/common/http';
+import {RestModule} from '@dontcode/plugin-rest';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,21 +21,21 @@ import {RestModule} from "@dontcode/plugin-rest";
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot([], {
-      enableTracing: false,   // <-- debugging purposes only
+      enableTracing: false, // <-- debugging purposes only
       useHash: true,
       relativeLinkResolution: 'corrected',
-      initialNavigation: 'enabledBlocking'
+      initialNavigation: 'enabledBlocking',
     }),
     SandboxModule.forRoot({
       webSocketUrl: environment.webSocketUrl,
       indexedDbName: 'Rest Plugin Tester',
       applicationName: 'Rest Plugin Tester',
-      theme:'orange',
-      templateFileUrl: 'assets/dev/templates.json'
+      theme: 'orange',
+      templateFileUrl: 'assets/dev/templates.json',
     }),
-    RestModule
+    RestModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
