@@ -91,8 +91,7 @@
     "extract-i18n": {
       "executor": "ngx-build-plus:extract-i18n",
       "options": {
-        "browserTarget": "plugin-tester:build",
-        "extraWebpackConfig": "apps/plugin-tester/webpack.config.js"
+        "browserTarget": "plugin-tester:build"
       }
     },
     "lint": {
