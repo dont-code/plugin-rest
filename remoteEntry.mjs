@@ -100,7 +100,7 @@ __webpack_require__.d(exports, {
 /******/ 	// This function allow to reference async chunks
 /******/ 	__webpack_require__.u = (chunkId) => {
 /******/ 		// return url for filenames based on template
-/******/ 		return "" + chunkId + "." + {"10":"82cd1a53ecc691fe","66":"f25097e8623c89f7","92":"d66a5b1426ef1fcd","162":"ca87c704bafa2bcd","274":"26c32174b9b1816c","340":"8578c085a71c706e","366":"7200ad3ad0532277","481":"cac1e41326000b1d","496":"e065c4ae2a77c91a","519":"f33eb41111bdc46c","529":"0dcce7cf4286060d","712":"6aabea9372d72a46","746":"ccd7fc788153d7ea","754":"d4649cc361e59e4f","895":"2d6af995a99f8165","941":"ba7018bd668e8e42","969":"605c94522bc3d775"}[chunkId] + ".js";
+/******/ 		return "" + chunkId + "." + {"10":"6175634725eee4f4","66":"f25097e8623c89f7","92":"d66a5b1426ef1fcd","162":"ca87c704bafa2bcd","274":"26c32174b9b1816c","340":"8578c085a71c706e","366":"7200ad3ad0532277","481":"cac1e41326000b1d","496":"e065c4ae2a77c91a","519":"f33eb41111bdc46c","529":"0dcce7cf4286060d","712":"6aabea9372d72a46","746":"ccd7fc788153d7ea","754":"d4649cc361e59e4f","895":"2d6af995a99f8165","941":"ba7018bd668e8e42","969":"d4c7cc8fa07e9cde"}[chunkId] + ".js";
 /******/ 	};
 /******/ })();
 /******/ 
@@ -220,8 +220,8 @@ __webpack_require__.d(exports, {
 /******/ 				register("@angular/platform-browser/animations", "13.3.4", () => (Promise.all([__webpack_require__.e(366), __webpack_require__.e(66), __webpack_require__.e(340), __webpack_require__.e(746), __webpack_require__.e(519)]).then(() => (() => (__webpack_require__(8746))))));
 /******/ 				register("@angular/platform-browser", "13.3.4", () => (Promise.all([__webpack_require__.e(366), __webpack_require__.e(66), __webpack_require__.e(481)]).then(() => (() => (__webpack_require__(1481))))));
 /******/ 				register("@angular/router", "13.3.4", () => (Promise.all([__webpack_require__.e(92), __webpack_require__.e(366), __webpack_require__.e(66), __webpack_require__.e(496)]).then(() => (() => (__webpack_require__(6496))))));
-/******/ 				register("@dontcode/plugin-rest", "0.1.3", () => (Promise.all([__webpack_require__.e(92), __webpack_require__.e(366), __webpack_require__.e(66), __webpack_require__.e(969), __webpack_require__.e(162), __webpack_require__.e(941)]).then(() => (() => (__webpack_require__(9941))))));
-/******/ 				register("@dontcode/sandbox", "0.5.5", () => (Promise.all([__webpack_require__.e(92), __webpack_require__.e(366), __webpack_require__.e(66), __webpack_require__.e(340), __webpack_require__.e(969), __webpack_require__.e(162), __webpack_require__.e(10), __webpack_require__.e(754)]).then(() => (() => (__webpack_require__(10))))));
+/******/ 				register("@dontcode/plugin-rest", "0.1.4", () => (Promise.all([__webpack_require__.e(92), __webpack_require__.e(366), __webpack_require__.e(66), __webpack_require__.e(969), __webpack_require__.e(162), __webpack_require__.e(941)]).then(() => (() => (__webpack_require__(9941))))));
+/******/ 				register("@dontcode/sandbox", "0.5.6", () => (Promise.all([__webpack_require__.e(92), __webpack_require__.e(366), __webpack_require__.e(66), __webpack_require__.e(340), __webpack_require__.e(969), __webpack_require__.e(162), __webpack_require__.e(10), __webpack_require__.e(754)]).then(() => (() => (__webpack_require__(10))))));
 /******/ 			}
 /******/ 			break;
 /******/ 		}
