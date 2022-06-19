@@ -1,4 +1,4 @@
-import {Plugin, DontCodeModel, PluginConfig} from '@dontcode/core';
+import {Plugin, DontCodeModel, PluginConfig, Core} from '@dontcode/core';
 
 /**
  * This plugin enables loading / saving entities from any rest services.
@@ -48,5 +48,9 @@ export class RestPlugin implements Plugin
         ]
 
     }
+  }
+
+  pluginInit(dontCode: Core): void {
+    // Nothing to do
   }
 }
