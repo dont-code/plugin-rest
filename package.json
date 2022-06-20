@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-architects/module-federation-runtime": "^14.2.3",
+    "@angular-architects/module-federation-runtime": "~14.2.3",
     "@angular/animations": "^13.3.2",
     "@angular/cdk": "^13.3.2",
     "@angular/common": "^13.3.2",
@@ -23,9 +23,8 @@
     "@angular/platform-browser": "^13.3.2",
     "@angular/platform-browser-dynamic": "^13.3.2",
     "@angular/router": "^13.3.2",
-    "@dontcode/core": "^0.5.4",
-    "@dontcode/plugin-common": "^0.5.6",
-    "@dontcode/sandbox": "^0.5.6",
+    "@dontcode/core": "^0.5.5",
+    "@dontcode/plugin-common": "^0.5.7",
     "@nrwl/angular": "14.0.2",
     "async-mutex": "^0.3.2",
     "broadcast-channel": "^4.11.0",
@@ -39,7 +38,7 @@
     "zone.js": "^0.11.5"
   },
   "devDependencies": {
-    "@angular-architects/module-federation": "^14.2.3",
+    "@angular-architects/module-federation": "~14.2.3",
     "@angular-devkit/build-angular": "^13.3.2",
     "@angular-eslint/eslint-plugin": "^13.2.1",
     "@angular-eslint/eslint-plugin-template": "^13.2.1",
