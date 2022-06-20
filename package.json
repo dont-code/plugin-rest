@@ -25,6 +25,7 @@
     "@angular/router": "^13.3.2",
     "@dontcode/core": "^0.5.5",
     "@dontcode/plugin-common": "^0.5.7",
+    "@dontcode/sandbox": "^0.5.7",
     "@nrwl/angular": "14.0.2",
     "async-mutex": "^0.3.2",
     "broadcast-channel": "^4.11.0",
