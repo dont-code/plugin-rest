@@ -16,7 +16,7 @@
         "value": {
           "name": "PluginOnlineSource",
           "type": "Rest",
-          "url": "https://www.omdbapi.com/?apikey=5e2ca9f7&s=star%20wars"
+          "url": "https://www.omdbapi.com/?apikey=5e2ca9f7&t=Inception"
         }
       },
       {
@@ -30,12 +30,16 @@
               "name": "Title",
               "type": "Text"
             },
-            "ac": {
-              "name":"Poster",
-              "type": "Image"
-            },
             "ab": {
-              "name": "Year",
+              "name": "Director",
+              "type": "Text"
+            },
+            "ac": {
+              "name":"Year",
+              "type": "Number"
+            },
+            "ad": {
+              "name":"imdbRating",
               "type": "Number"
             }
           }
@@ -66,12 +70,16 @@
               "name": "Title",
               "type": "Text"
             },
-            "ad": {
-              "name":"Poster",
-              "type": "Image"
+            "ab": {
+              "name": "Director",
+              "type": "Text"
             },
             "ac": {
               "name":"Year",
+              "type": "Number"
+            },
+            "ad": {
+              "name":"imdbRating",
               "type": "Number"
             }
           }
