@@ -58,7 +58,20 @@ export class RestStoreProvider implements DontCodeStoreProvider {
         dateFields.forEach(prop => {
           const toConvert = val[prop];
           if (toConvert!=null) {
-            val[prop]=new Date(toConvert);
+            let timeEpoch =Date.parse(toConvert);
+            if( isNaN(timeEpoch)) {
+              // Invalid date try to remove a possible TZ description in []
+              const tzDescIndex = toConvert.lastIndexOf('[');
+              if (tzDescIndex!=-1) {
+                timeEpoch=Date.parse(toConvert.substring(0, tzDescIndex));
+              }
+            }
+            if (isNaN(timeEpoch)) {
+              delete val[prop];
+            }
+            else {
+              val[prop]=new Date(timeEpoch);
+            }
           }
         })
       })
