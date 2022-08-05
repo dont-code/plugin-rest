@@ -1,4 +1,11 @@
-import {Change, ChangeType, DontCodeModelManager, DontCodeStoreManager, dtcde} from "@dontcode/core";
+import {
+  Change,
+  ChangeType,
+  DontCodeModelManager,
+  DontCodeStoreManager,
+  dtcde,
+  StoreProviderHelper
+} from "@dontcode/core";
 import {AbstractPluginHandler} from "@dontcode/plugin-common";
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
@@ -26,7 +33,7 @@ export class SourceHandler extends AbstractPluginHandler {
   handleChange (change: Change ) : void {
 
       // Clear the cache anytime the rest configuration changes
-    RestStoreProvider.clearConfigCache();
+    StoreProviderHelper.clearConfigCache();
 /*    if (change.pointer==null) {
       console.log('Cannot handle source event ', change.position+' without the pointer');
       return;

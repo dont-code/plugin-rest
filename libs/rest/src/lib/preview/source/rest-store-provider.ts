@@ -1,82 +1,18 @@
 import {
   DontCodeModel,
   DontCodeModelManager,
-  DontCodeStoreCriteria,
-  DontCodeStoreProvider,
+  DontCodeStoreCriteria, DontCodeStoreProvider,
   dtcde,
+  StoreProviderHelper,
   UploadedDocumentInfo
 } from "@dontcode/core";
-import {Observable, throwError} from "rxjs";
+import {lastValueFrom, Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 
 
-export class RestStoreProvider implements DontCodeStoreProvider {
-  static dateFieldsCache = new Map<string, Array<string>>();
+export class RestStoreProvider implements DontCodeStoreProvider{
   modelMgr: DontCodeModelManager;
-
-  /**
-   * In case some entity definition has changed, clear the cache
-   */
-  static clearConfigCache (): void {
-    this.dateFieldsCache.clear();
-  }
-
-  /** Returns any field who is a date, in order to convert it from json. Keep the result in a cache map
-   *
-   * @param position
-   * @param entity
-   * @protected
-   */
-  protected static findDates (position:string, entity:any):Array<string> {
-    let dates = RestStoreProvider.dateFieldsCache.get(position);
-    if (dates!=null) return dates;
-
-    dates = new Array<string>();
-    const fields = entity.fields;
-    if( fields!=null) {
-      let prop: keyof typeof fields;
-      for (prop in fields) {
-        if (fields[prop]?.type==='Date' || fields[prop]?.type==='Date & Time') {
-          dates.push(fields[prop]?.name);
-        }
-      }
-    }
-    RestStoreProvider.dateFieldsCache.set(position, dates);
-    return dates;
-  }
-
-  /**
-   * Converts dates and dateTimes properties of each element of the array to Typescript format
-   * @param listToConvert
-   * @param dateFields
-   * @protected
-   */
-  protected static convertDatesFromJson (listToConvert:Array<any>, dateFields:Array<string>) : void {
-    if (dateFields.length>0) {
-      listToConvert.forEach((val)=> {
-        dateFields.forEach(prop => {
-          const toConvert = val[prop];
-          if (toConvert!=null) {
-            let timeEpoch =Date.parse(toConvert);
-            if( isNaN(timeEpoch)) {
-              // Invalid date try to remove a possible TZ description in []
-              const tzDescIndex = toConvert.lastIndexOf('[');
-              if (tzDescIndex!=-1) {
-                timeEpoch=Date.parse(toConvert.substring(0, tzDescIndex));
-              }
-            }
-            if (isNaN(timeEpoch)) {
-              delete val[prop];
-            }
-            else {
-              val[prop]=new Date(timeEpoch);
-            }
-          }
-        })
-      })
-    }
-  }
 
   constructor(protected http:HttpClient) {
     this.modelMgr = dtcde.getModelManager();
@@ -94,22 +30,42 @@ export class RestStoreProvider implements DontCodeStoreProvider {
 
     const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position);
 
-    const obs = this.http.get(config.url+(key?'/'+key:''), {observe:"body", responseType:"json"}).pipe(
+    let loadUrl = config.url;
+    if (key!=null) {
+      try {
+        const targetUrl = new URL (config.url);
+        targetUrl.pathname=targetUrl.pathname+'/'+key;
+        loadUrl=targetUrl.toString();
+      } catch (wrongUrl) {
+        console.error("The url for loading the entity is incorrect", config.url);
+        return Promise.reject("The url for loading the entity is incorrect:"+ config.url);
+      }
+    }
+
+    const obs = this.http.get(loadUrl, {observe:"body", responseType:"json"}).pipe(
       map (value => {
-        RestStoreProvider.convertDatesFromJson([value], RestStoreProvider.findDates(position, entity));
+        if (Array.isArray(value)) {
+            throw new Error ("When loading an entity, the returned value should be one element");
+        } // Should be unique value
+        return value;
+      }),
+      map (value => {
+        StoreProviderHelper.cleanUpLoadedData([value], StoreProviderHelper.findSpecialFields(position, entity));
         return value;
       }))
-    return obs.toPromise();
+    return lastValueFrom(obs);
   }
 
   searchEntities(position: string, ...criteria: DontCodeStoreCriteria[]): Observable<Array<any>> {
     const entity = this.modelMgr.findAtPosition(position, false);
     if (entity === null)  {
-      return throwError("No entity found at position "+position);
+      return throwError(() => {
+        return new Error ("No entity found at position "+position)
+      });
     }
 
     // Search for all the date fields as we will need to convert them:
-    const dates = RestStoreProvider.findDates(position, entity);
+    const specialFields = StoreProviderHelper.findSpecialFields(position, entity);
 
     const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position);
 
@@ -129,7 +85,7 @@ export class RestStoreProvider implements DontCodeStoreProvider {
       }
     ),
       map (result => {
-        RestStoreProvider.convertDatesFromJson(result, dates);
+        StoreProviderHelper.cleanUpLoadedData(result, specialFields);
         return result;
       }));
   }
@@ -143,7 +99,9 @@ export class RestStoreProvider implements DontCodeStoreProvider {
   }
 
   storeDocuments(toStore: File[], position?: string): Observable<UploadedDocumentInfo> {
-    return throwError('Document storage is unsupported.');
+    return throwError(() => {
+      return new Error ('Document storage is unsupported.');
+    });
   }
 
 }
