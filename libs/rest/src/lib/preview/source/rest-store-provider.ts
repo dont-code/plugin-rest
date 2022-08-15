@@ -28,7 +28,7 @@ export class RestStoreProvider implements DontCodeStoreProvider{
       return Promise.reject("No entity found at position "+position);
     }
 
-    const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position);
+    const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position)?.value;
 
     let loadUrl = config.url;
     if (key!=null) {
@@ -67,7 +67,7 @@ export class RestStoreProvider implements DontCodeStoreProvider{
     // Search for all the date fields as we will need to convert them:
     const specialFields = StoreProviderHelper.findSpecialFields(position, entity);
 
-    const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position);
+    const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position)?.value;
 
     return this.http.get(config.url, {observe:"body", responseType:"json"}).pipe(map(value => {
         // Check if the result is an array, otherwise try to find an array embedded in the result
