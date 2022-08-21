@@ -1,6 +1,8 @@
 {
   "name": "@dontcode/plugin-rest",
+
   "version": "0.5.15",
+
   "peerDependencies": {
     "@angular/common": "^13.3.2",
     "@angular/core": "^13.3.2",
