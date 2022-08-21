@@ -1,8 +1,8 @@
 {
   "version": 2,
   "projects": {
-    "plugin-tester": "apps/plugin-tester",
-    "plugin-tester-e2e": "apps/plugin-tester-e2e",
-    "rest": "libs/rest"
+    "rest": "libs/rest",
+    "rest-tester": "apps/rest-tester",
+    "rest-tester-e2e": "apps/rest-tester-e2e"
   }
 }
