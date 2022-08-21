@@ -1,30 +1,33 @@
 import {
   checkValueOfInputWithName,
-  clickAutoComplete, getContentArea, getDropdownListItemWithName,
-  getDropdownWithName, getInputWithName,
+  clickAutoComplete,
+  getContentArea,
+  getDropdownListItemWithName,
+  getDropdownWithName,
+  getInputWithName,
   getSendButton,
   getSubMenuWithText,
-  selectPopupChoiceWithText
+  selectPopupChoiceWithText,
 } from '../support/app.po';
 
 describe('Rest Test', () => {
   beforeEach(() => cy.visit('/'));
 
-  it ('should display Values from Rest Source', () => {
-      cy.intercept('GET', '/assets/dev/templates.json').as('LoadTemplate');
-      getSubMenuWithText('Dev').click();// Move to dev page
+  it('should display Values from Rest Source', () => {
+    cy.intercept('GET', '/assets/dev/templates.json').as('LoadTemplate');
+    getSubMenuWithText('Dev').click(); // Move to dev page
 
-      cy.wait('@LoadTemplate');
-      clickAutoComplete("template");
-      selectPopupChoiceWithText("Create Test Offline");
-      getSendButton().click();
-      getSubMenuWithText('Offline Test').click();
+    cy.wait('@LoadTemplate');
+    clickAutoComplete('template');
+    selectPopupChoiceWithText('Create Test Offline');
+    getSendButton().click();
+    getSubMenuWithText('Offline Test').click();
 
-      getContentArea().contains ('Value of Title: Inception');
-      checkValueOfInputWithName('Director','Christopher Nolan');
-    });
+    getContentArea().contains('Value of Title: Inception');
+    checkValueOfInputWithName('Director', 'Christopher Nolan');
+  });
 
-/* it ('should display Seeder entity', () => {
+  /* it ('should display Seeder entity', () => {
     cy.intercept('GET', '/assets/dev/templates.json').as('LoadTemplate');
     getSubMenuWithText('Dev').click();// Move to dev page
 
