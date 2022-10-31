@@ -1,4 +1,5 @@
 import {
+  AbstractDontCodeStoreProvider,
   DontCodeModel,
   DontCodeModelManager,
   DontCodeStoreCriteria, DontCodeStoreProvider,
@@ -11,10 +12,11 @@ import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 
 
-export class RestStoreProvider implements DontCodeStoreProvider{
+export class RestStoreProvider extends AbstractDontCodeStoreProvider{
   modelMgr: DontCodeModelManager;
 
   constructor(protected http:HttpClient) {
+    super();
     this.modelMgr = dtcde.getModelManager();
   }
 
@@ -70,18 +72,19 @@ export class RestStoreProvider implements DontCodeStoreProvider{
     const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position)?.value;
 
     return this.http.get(config.url, {observe:"body", responseType:"json"}).pipe(map(value => {
+      let ret=[];
         // Check if the result is an array, otherwise try to find an array embedded in the result
         if (Array.isArray(value)) {
-          return value as Array<any>;
+          ret= value as Array<any>;
         } else {
           let prop: keyof typeof value;
           for (prop in value) {
             if (Array.isArray(value[prop])) {
-              return (value[prop] as unknown as Array<any>);
+              ret= (value[prop] as unknown as Array<any>);
             }
           }
-          return [];
         }
+        return this.applyFilters(ret, ...criteria);
       }
     ),
       map (result => {
