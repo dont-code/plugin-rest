@@ -1,12 +1,13 @@
 {
+  "name": "rest",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/rest",
   "sourceRoot": "libs/rest/src",
   "prefix": "dontcode",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/rest"],
+      "outputs": ["{workspaceRoot}/dist/libs/rest"],
       "options": {
         "project": "libs/rest/ng-package.json"
       },
@@ -22,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/rest"],
+      "outputs": ["{workspaceRoot}/coverage/libs/rest"],
       "options": {
         "jestConfig": "libs/rest/jest.config.ts",
         "passWithNoTests": true
