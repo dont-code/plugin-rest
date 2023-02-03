@@ -1,12 +1,15 @@
 {
+  "name": "rest-tester",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "root": "apps/rest-tester",
   "sourceRoot": "apps/rest-tester/src",
   "prefix": "dontcode",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:webpack-browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/rest-tester",
         "index": "apps/rest-tester/src/index.html",
@@ -82,7 +85,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@nrwl/angular:webpack-server",
+      "executor": "@nrwl/angular:webpack-dev-server",
       "configurations": {
         "production": {
           "browserTarget": "rest-tester:build:production"
@@ -114,7 +117,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/rest-tester"],
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/rest-tester"
+      ],
       "options": {
         "jestConfig": "apps/rest-tester/jest.config.ts",
         "passWithNoTests": true
