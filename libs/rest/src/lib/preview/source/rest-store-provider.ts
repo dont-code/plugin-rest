@@ -2,7 +2,7 @@ import {
   AbstractDontCodeStoreProvider,
   DontCodeModel,
   DontCodeModelManager,
-  DontCodeStoreCriteria, DontCodeStoreProvider,
+  DontCodeStoreCriteria,
   dtcde,
   StoreProviderHelper,
   UploadedDocumentInfo
@@ -12,7 +12,7 @@ import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 
 
-export class RestStoreProvider extends AbstractDontCodeStoreProvider{
+export class RestStoreProvider<T=never> extends AbstractDontCodeStoreProvider<T>{
   modelMgr: DontCodeModelManager;
 
   constructor(protected http:HttpClient) {
@@ -20,11 +20,11 @@ export class RestStoreProvider extends AbstractDontCodeStoreProvider{
     this.modelMgr = dtcde.getModelManager();
   }
 
-  deleteEntity(position: string, key: any): Promise<boolean> {
+  override deleteEntity(position: string, key: any): Promise<boolean> {
     return Promise.resolve(false);
   }
 
-  loadEntity(position: string, key: any): Promise<any> {
+  override loadEntity(position: string, key: any): Promise<T | undefined> {
     const entity = this.modelMgr.findAtPosition(position, false);
     if (entity === null)  {
       return Promise.reject("No entity found at position "+position);
@@ -44,7 +44,7 @@ export class RestStoreProvider extends AbstractDontCodeStoreProvider{
       }
     }
 
-    const obs = this.http.get(loadUrl, {observe:"body", responseType:"json"}).pipe(
+    const obs = this.http.get<T>(loadUrl, {observe:"body", responseType:"json"}).pipe(
       map (value => {
         if (Array.isArray(value)) {
             throw new Error ("When loading an entity, the returned value should be one element");
@@ -58,7 +58,7 @@ export class RestStoreProvider extends AbstractDontCodeStoreProvider{
     return lastValueFrom(obs);
   }
 
-  searchEntities(position: string, ...criteria: DontCodeStoreCriteria[]): Observable<Array<any>> {
+  override searchEntities(position: string, ...criteria: DontCodeStoreCriteria[]): Observable<Array<T>> {
     const entity = this.modelMgr.findAtPosition(position, false);
     if (entity === null)  {
       return throwError(() => {
@@ -72,19 +72,19 @@ export class RestStoreProvider extends AbstractDontCodeStoreProvider{
     const config = this.modelMgr.findTargetOfProperty(DontCodeModel.APP_ENTITIES_FROM_NODE, position)?.value;
 
     return this.http.get(config.url, {observe:"body", responseType:"json"}).pipe(map(value => {
-      let ret=[];
+      let ret:T[]=[];
         // Check if the result is an array, otherwise try to find an array embedded in the result
         if (Array.isArray(value)) {
-          ret= value as Array<any>;
+          ret= value as Array<T>;
         } else {
           let prop: keyof typeof value;
           for (prop in value) {
             if (Array.isArray(value[prop])) {
-              ret= (value[prop] as unknown as Array<any>);
+              ret= (value[prop] as unknown as Array<T>);
             }
           }
         }
-        return this.applyFilters(ret, ...criteria);
+        return StoreProviderHelper.applyFilters(ret, ...criteria);
       }
     ),
       map (result => {
@@ -93,8 +93,8 @@ export class RestStoreProvider extends AbstractDontCodeStoreProvider{
       }));
   }
 
-  storeEntity(position: string, entity: any): Promise<any> {
-    return Promise.resolve(undefined);
+  storeEntity(position: string, entity: T): Promise<T> {
+    return Promise.reject("RestStoreProvider cannot store elements");
   }
 
   canStoreDocument(position?: string): boolean {
