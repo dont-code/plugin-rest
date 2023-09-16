@@ -10,7 +10,8 @@ describe('Rest Store Provider', () => {
 
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
-  let storeProvider: RestStoreProvider;
+  let storeAAProvider: RestStoreProvider<EntityAA>;
+  let storeABProvider: RestStoreProvider<EntityAB>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,13 +22,14 @@ describe('Rest Store Provider', () => {
     // Inject the http service and test controller for each test
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-    storeProvider =  new RestStoreProvider (httpClient);
+    storeAAProvider =  new RestStoreProvider<EntityAA> (httpClient);
+    storeABProvider =  new RestStoreProvider<EntityAB> (httpClient);
   });
 
   it('should load list of entities', (done) => {
-    expect(storeProvider).toBeDefined();
+    expect(storeAAProvider).toBeDefined();
     dtcde.getModelManager().resetContent(MODEL);
-    storeProvider.searchEntities("creation/entities/aa").pipe (
+    storeAAProvider.searchEntities("creation/entities/aa").pipe (
       tap (value => {
         expect(value.length).toEqual(2);
         expect(value[0].string).toStrictEqual('Test');
@@ -36,7 +38,7 @@ describe('Rest Store Provider', () => {
       })
       ).subscribe( {
       complete: () => {
-        storeProvider.searchEntities("creation/entities/ab").pipe (
+        storeABProvider.searchEntities("creation/entities/ab").pipe (
           tap (value => {
             expect(value.length).toEqual(1);
             expect(value[0].name).toStrictEqual('DateTest');
@@ -65,6 +67,18 @@ describe('Rest Store Provider', () => {
   });
 
 })
+
+interface EntityAA {
+  string:string;
+  number:number;
+  boolean:boolean;
+}
+
+interface EntityAB {
+  name:string;
+  dateTime:Date;
+  date:Date;
+}
 
 const MODEL= {
   creation: {

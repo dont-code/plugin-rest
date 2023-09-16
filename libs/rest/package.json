@@ -1,6 +1,6 @@
 {
   "name": "@dontcode/plugin-rest",
-  "version": "0.6.0",
+  "version": "1.0.1",
   "peerDependencies": {
     "@angular/common": "^15.1.2",
     "@angular/core": "^15.1.2",
@@ -11,7 +11,6 @@
     "core-js": "^3.27.2",
     "@dontcode/core": "^1.0.0",
     "@dontcode/plugin-common": "^1.0.0"
-
   },
   "dependencies": {
     "tslib": "^2.3.1"
