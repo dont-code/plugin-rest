@@ -108,7 +108,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.DONTCODE_ACTIONS_TOKEN }}
       - name: Publish library ${{env.stage}}
-        if: ${{ success() && ( matrix.browser == 'chromium' ) && ( inputs.next == true)}}
+        if: ${{ success() && ( matrix.browser == 'chromium' ) }}
         run: |
           npm publish dist/libs/rest --access public --tag ${{env.stage}}
         env:
