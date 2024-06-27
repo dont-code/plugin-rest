@@ -1,5 +1,8 @@
 ![image](https://dont-code.net/assets/logo-shadow-squared.png)
-## What is it for ?
+## Important !
+This repository is now deprecated. All developments for Dont-code are now happening in the [Monorepo repository](https://github.com/dont-code/monorepo)
+
+## What was it for ?
 
 This plugin for the [Dont-code](https://dont-code.net) platform enables loading entity data from any rest service.
 
